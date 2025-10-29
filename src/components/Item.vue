@@ -1,30 +1,51 @@
-<script setup>
-import { ref, nextTick } from 'vue'
+<script setup lang="ts">
+import { ref, nextTick, watch } from 'vue'
+import { useTasksStore } from '../stores/tasks'
 
-const text = ref('Click to edit')
-const editableText = ref(text.value)
+const props = defineProps<{
+  id: number
+  name: string
+  state: string
+}>()
+
+const tasksStore = useTasksStore()
+
+const editableText = ref(props.name)
 const isEditing = ref(false)
-const inputRef = ref(null)
+const inputRef = ref<HTMLInputElement | null>(null)
+const currentState = ref(props.state)
+
+watch(() => props.name, (val) => { editableText.value = val })
+watch(() => props.state, (val) => { currentState.value = val })
 
 function startEditing() {
   isEditing.value = true
-  editableText.value = text.value
-  nextTick(() => inputRef.value.focus())
+  nextTick(() => inputRef.value?.focus())
 }
 
 function saveEdit() {
-  text.value = editableText.value.trim() || text.value
+  const trimmed = editableText.value.trim()
+  if (trimmed && trimmed !== props.name) {
+    tasksStore.updateTaskName(props.id, trimmed)
+  }
   isEditing.value = false
+}
+
+function changeState(e: Event) {
+  const value = (e.target as HTMLSelectElement).value
+  if (value !== props.state) {
+    tasksStore.updateTaskState(props.id, value)
+  }
 }
 </script>
 
 <template>
   <div class="content">
     <div>
-      <span v-if="!isEditing" @click="startEditing">{{ text }}</span>
+      <span v-if="!isEditing" @click="startEditing">{{ editableText }}</span>
       <input v-else v-model="editableText" @blur="saveEdit" @keyup.enter="saveEdit" ref="inputRef" />
     </div>
-    <select>
+    <select :value="currentState" @change="changeState">
       <option>En cours</option>
       <option>Terminer</option>
       <option>Suspendu</option>

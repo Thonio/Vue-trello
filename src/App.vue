@@ -14,10 +14,10 @@ import Column from './components/Column.vue'
   <div class="title">
     <h1>Vue Trello</h1>
   </div>
-  <div class="container">
-    <Column />
-    <Column />
-    <Column />
+  <div class="boards">
+    <Column :filterState="'En cours'" />
+    <Column :filterState="'Terminer'" />
+    <Column :filterState="'Suspendu'" />
   </div>
 </template>
 
@@ -46,5 +46,11 @@ import Column from './components/Column.vue'
 
 .title {
   text-align: center;
+}
+
+.boards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
 }
 </style>
