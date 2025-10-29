@@ -16,6 +16,8 @@ import Column from './components/Column.vue'
   </div>
   <div class="container">
     <Column />
+    <Column />
+    <Column />
   </div>
 </template>
 
@@ -24,6 +26,7 @@ import Column from './components/Column.vue'
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
 }
 
 .logo {

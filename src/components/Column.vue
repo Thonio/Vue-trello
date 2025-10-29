@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Button from './Button.vue'
+import Item from './Item.vue'
 </script>
 
 <template>
@@ -11,34 +12,7 @@ import Button from './Button.vue'
       <Button text="Ajouter une tache">+</Button>
     </div>
     <div>
-      <div class="content">
-        <input type="text" />
-        <Button text="valider">Ajouter</Button>
-      </div>
-      <div class="content">
-        <div>Tache</div>
-        <select>
-          <option>En cours</option>
-          <option>Terminer</option>
-          <option>Suspendu</option>
-        </select>
-      </div>
-      <div class="content">
-        <div>Une tache assez longue pour la colonne</div>
-        <select>
-          <option>En cours</option>
-          <option>Terminer</option>
-          <option>Suspendu</option>
-        </select>
-      </div>
-      <div class="content">
-        <div>Tache</div>
-        <select>
-          <option>En cours</option>
-          <option>Terminer</option>
-          <option>Suspendu</option>
-        </select>
-      </div>
+      <Item />
     </div>
   </div>
 </template>
@@ -55,14 +29,5 @@ import Button from './Button.vue'
   font-weight: bold;
   display: flex;
   justify-content: space-between;
-}
-
-.content {
-  background-color: #fff;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 </style>
